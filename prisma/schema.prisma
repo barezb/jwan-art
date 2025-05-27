@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  slug        String    @unique
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  artworks    Artwork[]
+
+  @@map("categories")
+}
+
+model Artwork {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  dimensions  String?
+  imageUrl    String
+  imageKey    String   // S3 object key
+  isFeatured  Boolean  @default(false) // For homepage selection
+  isPublished Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId String
+
+  @@map("artworks")
+}
+
+model SiteSettings {
+  id              String  @id @default(cuid())
+  artistName      String?
+  artistBio       String?
+  artistJourney   String?
+  achievements    String?
+  contactEmail    String?
+  contactPhone    String?
+  socialInstagram String?
+  socialTwitter   String?
+  socialFacebook  String?
+  socialLinkedin  String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("site_settings")
+}
