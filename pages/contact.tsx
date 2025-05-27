@@ -42,12 +42,23 @@ export default function Contact({ settings }: ContactProps) {
     setError("");
 
     try {
-      // Here you would typically send the form data to your backend
-      // For now, we'll simulate a successful submission
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      // Send form data to contact API
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-      setIsSubmitted(true);
-      setFormData({ name: "", email: "", subject: "", message: "" });
+      const result = await response.json();
+
+      if (result.success) {
+        setIsSubmitted(true);
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        setError(result.error || "Failed to send message. Please try again.");
+      }
     } catch (error) {
       setError("Failed to send message. Please try again.");
     } finally {

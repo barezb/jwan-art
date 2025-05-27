@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Allow: /gallery
+Allow: /about
+Allow: /contact
+Disallow: /admin/
+Disallow: /api/
+
+Sitemap: https://yourdomain.com/sitemap.xml
