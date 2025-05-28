@@ -9,6 +9,9 @@ import {
   X,
   ChevronLeft,
   ChevronRight,
+  Star,
+  Heart,
+  Eye,
 } from "lucide-react";
 import { ArtworkWithCategory, SiteSettings, Category } from "../types";
 
@@ -102,41 +105,37 @@ export default function Gallery({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [selectedArtwork, filteredArtworks]);
 
-  const getMasonryItemHeight = (index: number) => {
-    const heights = ["h-64", "h-80", "h-96", "h-72", "h-88"];
-    return heights[index % heights.length];
-  };
-
   return (
     <Layout settings={settings}>
-      {/* Header */}
-      <section className="pt-24 pb-12 bg-gradient-to-b from-black to-gray-900">
+      {/* Hero Section */}
+      <section className="pt-24 pb-16 bg-gradient-to-br from-gray-50 to-white dark:from-black dark:via-gray-900 dark:to-black transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl sm:text-6xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-4">
-              Art Gallery
+          <div className="text-center mb-16">
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 bg-clip-text text-transparent mb-6">
+              Gallery
             </h1>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-              Explore my collection of artworks across different styles and
-              mediums
+            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
+              Explore a curated collection of artistic expressions, where each
+              piece tells a unique story and captures moments of creative
+              inspiration.
             </p>
           </div>
 
-          {/* Search and Filters */}
-          <div className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-6 mb-8">
-            <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
+          {/* Enhanced Search and Filters */}
+          <div className="bg-white/80 dark:bg-black/40 backdrop-blur-xl rounded-3xl border border-gray-200/50 dark:border-white/10 p-8 mb-12 shadow-2xl">
+            <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
               {/* Search */}
               <div className="relative flex-1 max-w-md">
                 <Search
                   size={20}
-                  className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"
                 />
                 <input
                   type="text"
                   placeholder="Search artworks..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
+                  className="w-full pl-12 pr-4 py-4 bg-gray-50 dark:bg-white/5 border border-gray-200/50 dark:border-white/10 rounded-2xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-lg"
                 />
               </div>
 
@@ -145,16 +144,16 @@ export default function Gallery({
                 <select
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
+                  className="px-6 py-4 bg-gray-50 dark:bg-white/5 border border-gray-200/50 dark:border-white/10 rounded-2xl text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-lg font-medium"
                 >
-                  <option value="all" className="bg-gray-900">
+                  <option value="all" className="bg-white dark:bg-gray-900">
                     All Categories
                   </option>
                   {categories.map((category) => (
                     <option
                       key={category.id}
                       value={category.id}
-                      className="bg-gray-900"
+                      className="bg-white dark:bg-gray-900"
                     >
                       {category.name} ({category._count?.artworks || 0})
                     </option>
@@ -162,23 +161,23 @@ export default function Gallery({
                 </select>
 
                 {/* View Mode Toggle */}
-                <div className="flex bg-white/10 rounded-xl p-1">
+                <div className="flex bg-gray-100 dark:bg-white/10 rounded-2xl p-2 border border-gray-200/50 dark:border-white/10">
                   <button
                     onClick={() => setViewMode("masonry")}
-                    className={`p-2 rounded-lg transition-all duration-200 ${
+                    className={`p-3 rounded-xl transition-all duration-300 ${
                       viewMode === "masonry"
-                        ? "bg-purple-600 text-white"
-                        : "text-gray-400 hover:text-white"
+                        ? "bg-white dark:bg-purple-600 text-purple-600 dark:text-white shadow-lg transform scale-105"
+                        : "text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400"
                     }`}
                   >
                     <Grid size={20} />
                   </button>
                   <button
                     onClick={() => setViewMode("grid")}
-                    className={`p-2 rounded-lg transition-all duration-200 ${
+                    className={`p-3 rounded-xl transition-all duration-300 ${
                       viewMode === "grid"
-                        ? "bg-purple-600 text-white"
-                        : "text-gray-400 hover:text-white"
+                        ? "bg-white dark:bg-purple-600 text-purple-600 dark:text-white shadow-lg transform scale-105"
+                        : "text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400"
                     }`}
                   >
                     <List size={20} />
@@ -188,94 +187,148 @@ export default function Gallery({
             </div>
 
             {/* Results Count */}
-            <div className="mt-4 text-center">
-              <p className="text-gray-400">
-                Showing {filteredArtworks.length} of {artworks.length} artworks
-                {selectedCategory !== "all" && (
-                  <span className="ml-2 inline-flex items-center px-2 py-1 rounded-full text-xs bg-purple-600/20 text-purple-300">
-                    {categories.find((c) => c.id === selectedCategory)?.name}
-                  </span>
-                )}
+            <div className="mt-6 flex items-center justify-between">
+              <p className="text-gray-600 dark:text-gray-400 font-medium">
+                Showing{" "}
+                <span className="text-purple-600 dark:text-purple-400 font-bold">
+                  {filteredArtworks.length}
+                </span>{" "}
+                of {artworks.length} artworks
               </p>
+              {selectedCategory !== "all" && (
+                <span className="inline-flex items-center px-4 py-2 rounded-full text-sm bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-700">
+                  {categories.find((c) => c.id === selectedCategory)?.name}
+                </span>
+              )}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Gallery Grid */}
-      <section className="py-12 bg-gray-900">
+      {/* Enhanced Gallery Grid */}
+      <section className="py-16 bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {filteredArtworks.length > 0 ? (
             <div
               className={
                 viewMode === "masonry"
-                  ? "columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6"
-                  : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+                  ? "columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-8 space-y-8"
+                  : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
               }
             >
-              {filteredArtworks.map((artwork, index) => (
-                <div
-                  key={artwork.id}
-                  className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-900/20 to-pink-900/20 backdrop-blur-sm border border-white/10 cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-purple-500/25 ${
-                    viewMode === "masonry"
-                      ? `break-inside-avoid mb-6 ${getMasonryItemHeight(index)}`
-                      : "aspect-square"
-                  }`}
-                  onClick={() => openLightbox(artwork)}
-                  style={{
-                    animationDelay: `${index * 50}ms`,
-                  }}
-                >
-                  <img
-                    src={artwork.imageUrl}
-                    alt={artwork.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
+              {filteredArtworks.map((artwork, index) => {
+                const aspectRatio =
+                  Math.random() > 0.5
+                    ? "aspect-[4/5]"
+                    : Math.random() > 0.5
+                    ? "aspect-square"
+                    : "aspect-[3/4]";
 
-                  {/* Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300" />
+                return (
+                  <div
+                    key={artwork.id}
+                    className={`group relative overflow-hidden rounded-3xl cursor-pointer transition-all duration-700 hover:scale-[1.02] ${
+                      viewMode === "masonry"
+                        ? "break-inside-avoid mb-8"
+                        : aspectRatio
+                    }`}
+                    onClick={() => openLightbox(artwork)}
+                    style={{
+                      animationDelay: `${index * 100}ms`,
+                    }}
+                  >
+                    {/* Main Card */}
+                    <div className="relative h-full bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-700 border border-gray-200/50 dark:border-gray-700/50">
+                      {/* Image Container with 3D Effect */}
+                      <div className="relative overflow-hidden rounded-t-3xl">
+                        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 via-transparent to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10" />
 
-                  {/* Content */}
-                  <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-8 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <h3 className="text-white font-bold text-lg mb-1">
-                      {artwork.title}
-                    </h3>
-                    <p className="text-purple-300 text-sm mb-2">
-                      {artwork.category.name}
-                    </p>
-                    {artwork.description && (
-                      <p className="text-gray-300 text-sm line-clamp-2">
-                        {artwork.description}
-                      </p>
-                    )}
-                    {artwork.dimensions && (
-                      <p className="text-gray-400 text-xs mt-2">
-                        {artwork.dimensions}
-                      </p>
-                    )}
-                  </div>
+                        <img
+                          src={artwork.imageUrl}
+                          alt={artwork.title}
+                          className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-1"
+                          style={{
+                            minHeight:
+                              viewMode === "masonry" ? "300px" : "400px",
+                            maxHeight:
+                              viewMode === "masonry" ? "600px" : "400px",
+                          }}
+                        />
 
-                  {/* Featured Badge */}
-                  {artwork.isFeatured && (
-                    <div className="absolute top-4 right-4 bg-gradient-to-r from-yellow-400 to-orange-400 text-black px-2 py-1 rounded-full text-xs font-bold">
-                      Featured
+                        {/* Gradient Overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500" />
+
+                        {/* Featured Badge */}
+                        {artwork.isFeatured && (
+                          <div className="absolute top-4 right-4 transform translate-x-16 group-hover:translate-x-0 transition-transform duration-500">
+                            <div className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center space-x-1 shadow-lg">
+                              <Star size={12} className="fill-current" />
+                              <span>Featured</span>
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Hover Icons */}
+                        <div className="absolute top-4 left-4 flex space-x-2 transform -translate-x-16 group-hover:translate-x-0 transition-transform duration-500 delay-100">
+                          <div className="bg-white/20 backdrop-blur-md text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300">
+                            <Eye size={16} />
+                          </div>
+                          <div className="bg-white/20 backdrop-blur-md text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 delay-75">
+                            <Heart size={16} />
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Content Section */}
+                      <div className="p-6 space-y-4">
+                        <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300">
+                            {artwork.title}
+                          </h3>
+                          <p className="text-purple-600 dark:text-purple-400 font-semibold text-sm mb-3 tracking-wide uppercase">
+                            {artwork.category.name}
+                          </p>
+                        </div>
+
+                        {artwork.description && (
+                          <div className="transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">
+                            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed line-clamp-3">
+                              {artwork.description}
+                            </p>
+                          </div>
+                        )}
+
+                        {artwork.dimensions && (
+                          <div className="transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-200">
+                            <p className="text-xs text-gray-500 dark:text-gray-500 font-medium tracking-wider">
+                              {artwork.dimensions}
+                            </p>
+                          </div>
+                        )}
+
+                        {/* Decorative Elements */}
+                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left" />
+                      </div>
                     </div>
-                  )}
-                </div>
-              ))}
+                  </div>
+                );
+              })}
             </div>
           ) : (
-            <div className="text-center py-20">
-              <div className="w-24 h-24 mx-auto mb-6 bg-white/5 rounded-full flex items-center justify-center">
-                <Search size={32} className="text-gray-400" />
+            <div className="text-center py-24">
+              <div className="w-32 h-32 mx-auto mb-8 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 rounded-full flex items-center justify-center">
+                <Search
+                  size={48}
+                  className="text-purple-600 dark:text-purple-400"
+                />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-2">
+              <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
                 No artworks found
               </h3>
-              <p className="text-gray-400 mb-6">
+              <p className="text-gray-600 dark:text-gray-400 mb-8 text-lg max-w-md mx-auto">
                 {searchTerm || selectedCategory !== "all"
-                  ? "Try adjusting your search or filters"
-                  : "No artworks available at the moment"}
+                  ? "Try adjusting your search criteria or browse different categories."
+                  : "The gallery is currently being curated. Please check back soon."}
               </p>
               {(searchTerm || selectedCategory !== "all") && (
                 <button
@@ -283,9 +336,9 @@ export default function Gallery({
                     setSearchTerm("");
                     setSelectedCategory("all");
                   }}
-                  className="bg-purple-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-purple-700 transition-colors duration-200"
+                  className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-full font-semibold text-lg hover:shadow-2xl hover:shadow-purple-500/25 transform hover:scale-105 transition-all duration-300"
                 >
-                  Clear Filters
+                  Clear All Filters
                 </button>
               )}
             </div>
@@ -293,16 +346,16 @@ export default function Gallery({
         </div>
       </section>
 
-      {/* Lightbox */}
+      {/* Enhanced Lightbox */}
       {selectedArtwork && (
-        <div className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="relative max-w-6xl max-h-full w-full">
+        <div className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex items-center justify-center p-4">
+          <div className="relative max-w-7xl max-h-full w-full">
             {/* Close Button */}
             <button
               onClick={closeLightbox}
-              className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors duration-200 z-10"
+              className="absolute -top-16 right-0 text-white hover:text-gray-300 transition-all duration-200 z-10 bg-white/10 backdrop-blur-md rounded-full p-3 hover:bg-white/20"
             >
-              <X size={32} />
+              <X size={24} />
             </button>
 
             {/* Navigation Buttons */}
@@ -310,40 +363,40 @@ export default function Gallery({
               <>
                 <button
                   onClick={() => navigateArtwork("prev")}
-                  className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 transition-colors duration-200 z-10 bg-black/50 rounded-full p-2"
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 transition-all duration-200 z-10 bg-white/10 backdrop-blur-md rounded-full p-4 hover:bg-white/20"
                 >
-                  <ChevronLeft size={32} />
+                  <ChevronLeft size={28} />
                 </button>
                 <button
                   onClick={() => navigateArtwork("next")}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 transition-colors duration-200 z-10 bg-black/50 rounded-full p-2"
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 transition-all duration-200 z-10 bg-white/10 backdrop-blur-md rounded-full p-4 hover:bg-white/20"
                 >
-                  <ChevronRight size={32} />
+                  <ChevronRight size={28} />
                 </button>
               </>
             )}
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               {/* Image */}
               <div className="relative">
                 <img
                   src={selectedArtwork.imageUrl}
                   alt={selectedArtwork.title}
-                  className="w-full h-auto max-h-[80vh] object-contain rounded-2xl"
+                  className="w-full h-auto max-h-[80vh] object-contain rounded-2xl shadow-2xl"
                 />
               </div>
 
-              {/* Details */}
-              <div className="space-y-6">
+              {/* Enhanced Details */}
+              <div className="space-y-8">
                 <div>
-                  <h2 className="text-3xl font-bold text-white mb-2">
+                  <h2 className="text-4xl font-bold text-white mb-4">
                     {selectedArtwork.title}
                   </h2>
-                  <p className="text-purple-300 text-lg">
+                  <p className="text-purple-400 text-xl font-semibold mb-2">
                     {selectedArtwork.category.name}
                   </p>
                   {selectedArtwork.dimensions && (
-                    <p className="text-gray-400 mt-2">
+                    <p className="text-gray-400 text-lg">
                       {selectedArtwork.dimensions}
                     </p>
                   )}
@@ -351,28 +404,33 @@ export default function Gallery({
 
                 {selectedArtwork.description && (
                   <div>
-                    <h3 className="text-xl font-semibold text-white mb-3">
-                      Description
+                    <h3 className="text-2xl font-semibold text-white mb-4">
+                      About This Piece
                     </h3>
-                    <p className="text-gray-300 leading-relaxed">
+                    <p className="text-gray-300 leading-relaxed text-lg">
                       {selectedArtwork.description}
                     </p>
                   </div>
                 )}
 
-                {selectedArtwork.isFeatured && (
-                  <div className="inline-flex items-center px-3 py-1 rounded-full bg-gradient-to-r from-yellow-400 to-orange-400 text-black text-sm font-bold">
-                    ⭐ Featured Artwork
-                  </div>
-                )}
+                <div className="flex items-center space-x-4">
+                  {selectedArtwork.isFeatured && (
+                    <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-sm font-bold">
+                      <Star size={16} className="mr-2 fill-current" />
+                      Featured Artwork
+                    </div>
+                  )}
+                </div>
 
                 {/* Navigation Info */}
                 {filteredArtworks.length > 1 && (
-                  <div className="text-center text-gray-400 text-sm">
-                    {filteredArtworks.findIndex(
-                      (a) => a.id === selectedArtwork.id
-                    ) + 1}{" "}
-                    of {filteredArtworks.length}
+                  <div className="text-center text-gray-400 text-lg border-t border-white/20 pt-6">
+                    <span className="bg-white/10 backdrop-blur-md px-4 py-2 rounded-full">
+                      {filteredArtworks.findIndex(
+                        (a) => a.id === selectedArtwork.id
+                      ) + 1}{" "}
+                      of {filteredArtworks.length}
+                    </span>
                   </div>
                 )}
               </div>

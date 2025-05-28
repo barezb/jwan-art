@@ -71,38 +71,38 @@ export default function Contact({ settings }: ContactProps) {
       icon: Instagram,
       href: settings.socialInstagram,
       name: "Instagram",
-      color: "hover:text-pink-400",
+      color: "hover:text-pink-600 dark:hover:text-pink-400",
     },
     {
       icon: Twitter,
       href: settings.socialTwitter,
       name: "Twitter",
-      color: "hover:text-blue-400",
+      color: "hover:text-blue-600 dark:hover:text-blue-400",
     },
     {
       icon: Facebook,
       href: settings.socialFacebook,
       name: "Facebook",
-      color: "hover:text-blue-500",
+      color: "hover:text-blue-700 dark:hover:text-blue-500",
     },
     {
       icon: Linkedin,
       href: settings.socialLinkedin,
       name: "LinkedIn",
-      color: "hover:text-blue-600",
+      color: "hover:text-blue-800 dark:hover:text-blue-600",
     },
   ].filter((link) => link.href);
 
   return (
     <Layout settings={settings}>
       {/* Hero Section */}
-      <section className="pt-24 pb-16 bg-gradient-to-b from-black to-gray-900">
+      <section className="pt-24 pb-16 bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-black dark:to-gray-900 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h1 className="text-4xl sm:text-6xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-4">
+            <h1 className="text-4xl sm:text-6xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-4">
               Get In Touch
             </h1>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
               I'd love to hear from you. Whether you have a question about my
               work, want to collaborate, or just want to say hello.
             </p>
@@ -111,12 +111,12 @@ export default function Contact({ settings }: ContactProps) {
       </section>
 
       {/* Contact Content */}
-      <section className="py-16 bg-gray-900">
+      <section className="py-16 bg-white dark:bg-gray-900 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             {/* Contact Form */}
-            <div className="bg-gradient-to-br from-purple-900/20 to-pink-900/20 backdrop-blur-sm border border-white/10 rounded-3xl p-8 lg:p-12">
-              <h2 className="text-3xl font-bold text-white mb-8">
+            <div className="bg-gray-50 dark:bg-gradient-to-br dark:from-purple-900/20 dark:to-pink-900/20 backdrop-blur-sm border border-gray-200 dark:border-white/10 rounded-3xl p-8 lg:p-12">
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
                 Send a Message
               </h2>
 
@@ -125,10 +125,10 @@ export default function Contact({ settings }: ContactProps) {
                   <div className="w-16 h-16 mx-auto mb-6 bg-green-600 rounded-full flex items-center justify-center">
                     <CheckCircle size={32} className="text-white" />
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-4">
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
                     Thank You!
                   </h3>
-                  <p className="text-gray-400 mb-6">
+                  <p className="text-gray-600 dark:text-gray-400 mb-6">
                     Your message has been sent successfully. I'll get back to
                     you as soon as possible.
                   </p>
@@ -145,7 +145,7 @@ export default function Contact({ settings }: ContactProps) {
                     <div>
                       <label
                         htmlFor="name"
-                        className="block text-sm font-medium text-gray-300 mb-2"
+                        className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                       >
                         Name *
                       </label>
@@ -156,7 +156,7 @@ export default function Contact({ settings }: ContactProps) {
                         required
                         value={formData.name}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
+                        className="w-full px-4 py-3 bg-white dark:bg-white/10 border border-gray-300 dark:border-white/20 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
                         placeholder="Your full name"
                       />
                     </div>
@@ -164,7 +164,7 @@ export default function Contact({ settings }: ContactProps) {
                     <div>
                       <label
                         htmlFor="email"
-                        className="block text-sm font-medium text-gray-300 mb-2"
+                        className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                       >
                         Email *
                       </label>
@@ -175,7 +175,7 @@ export default function Contact({ settings }: ContactProps) {
                         required
                         value={formData.email}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
+                        className="w-full px-4 py-3 bg-white dark:bg-white/10 border border-gray-300 dark:border-white/20 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
                         placeholder="your@email.com"
                       />
                     </div>
@@ -184,7 +184,7 @@ export default function Contact({ settings }: ContactProps) {
                   <div>
                     <label
                       htmlFor="subject"
-                      className="block text-sm font-medium text-gray-300 mb-2"
+                      className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                     >
                       Subject *
                     </label>
@@ -195,7 +195,7 @@ export default function Contact({ settings }: ContactProps) {
                       required
                       value={formData.subject}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
+                      className="w-full px-4 py-3 bg-white dark:bg-white/10 border border-gray-300 dark:border-white/20 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
                       placeholder="What's this about?"
                     />
                   </div>
@@ -203,7 +203,7 @@ export default function Contact({ settings }: ContactProps) {
                   <div>
                     <label
                       htmlFor="message"
-                      className="block text-sm font-medium text-gray-300 mb-2"
+                      className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                     >
                       Message *
                     </label>
@@ -214,13 +214,13 @@ export default function Contact({ settings }: ContactProps) {
                       rows={6}
                       value={formData.message}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 resize-none"
+                      className="w-full px-4 py-3 bg-white dark:bg-white/10 border border-gray-300 dark:border-white/20 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 resize-none"
                       placeholder="Tell me more about your inquiry..."
                     />
                   </div>
 
                   {error && (
-                    <div className="bg-red-900/50 border border-red-500/50 text-red-300 px-4 py-3 rounded-xl text-sm">
+                    <div className="bg-red-50 dark:bg-red-900/50 border border-red-200 dark:border-red-500/50 text-red-600 dark:text-red-300 px-4 py-3 rounded-xl text-sm">
                       {error}
                     </div>
                   )}
@@ -249,8 +249,8 @@ export default function Contact({ settings }: ContactProps) {
             {/* Contact Information */}
             <div className="space-y-8">
               {/* Contact Details */}
-              <div className="bg-gradient-to-br from-purple-900/20 to-pink-900/20 backdrop-blur-sm border border-white/10 rounded-3xl p-8">
-                <h3 className="text-2xl font-bold text-white mb-6">
+              <div className="bg-gray-50 dark:bg-gradient-to-br dark:from-purple-900/20 dark:to-pink-900/20 backdrop-blur-sm border border-gray-200 dark:border-white/10 rounded-3xl p-8">
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
                   Contact Information
                 </h3>
 
@@ -261,10 +261,12 @@ export default function Contact({ settings }: ContactProps) {
                         <Mail size={20} className="text-white" />
                       </div>
                       <div>
-                        <p className="text-gray-400 text-sm">Email</p>
+                        <p className="text-gray-500 dark:text-gray-400 text-sm">
+                          Email
+                        </p>
                         <a
                           href={`mailto:${settings.contactEmail}`}
-                          className="text-white hover:text-purple-400 transition-colors duration-200 font-medium"
+                          className="text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-200 font-medium"
                         >
                           {settings.contactEmail}
                         </a>
@@ -278,10 +280,12 @@ export default function Contact({ settings }: ContactProps) {
                         <Phone size={20} className="text-white" />
                       </div>
                       <div>
-                        <p className="text-gray-400 text-sm">Phone</p>
+                        <p className="text-gray-500 dark:text-gray-400 text-sm">
+                          Phone
+                        </p>
                         <a
                           href={`tel:${settings.contactPhone}`}
-                          className="text-white hover:text-purple-400 transition-colors duration-200 font-medium"
+                          className="text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-200 font-medium"
                         >
                           {settings.contactPhone}
                         </a>
@@ -294,8 +298,10 @@ export default function Contact({ settings }: ContactProps) {
                       <MapPin size={20} className="text-white" />
                     </div>
                     <div>
-                      <p className="text-gray-400 text-sm">Location</p>
-                      <p className="text-white font-medium">
+                      <p className="text-gray-500 dark:text-gray-400 text-sm">
+                        Location
+                      </p>
+                      <p className="text-gray-900 dark:text-white font-medium">
                         Available Worldwide
                       </p>
                     </div>
@@ -305,8 +311,8 @@ export default function Contact({ settings }: ContactProps) {
 
               {/* Social Media */}
               {socialLinks.length > 0 && (
-                <div className="bg-gradient-to-br from-purple-900/20 to-pink-900/20 backdrop-blur-sm border border-white/10 rounded-3xl p-8">
-                  <h3 className="text-2xl font-bold text-white mb-6">
+                <div className="bg-gray-50 dark:bg-gradient-to-br dark:from-purple-900/20 dark:to-pink-900/20 backdrop-blur-sm border border-gray-200 dark:border-white/10 rounded-3xl p-8">
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
                     Follow My Work
                   </h3>
 
@@ -319,10 +325,12 @@ export default function Contact({ settings }: ContactProps) {
                           href={social.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className={`flex items-center space-x-3 p-4 bg-white/5 rounded-xl border border-white/10 transition-all duration-300 hover:bg-white/10 hover:border-white/20 ${social.color} group`}
+                          className={`flex items-center space-x-3 p-4 bg-white dark:bg-white/5 rounded-xl border border-gray-200 dark:border-white/10 transition-all duration-300 hover:bg-gray-100 dark:hover:bg-white/10 hover:border-purple-300 dark:hover:border-white/20 ${social.color} group`}
                         >
                           <Icon size={24} />
-                          <span className="font-medium">{social.name}</span>
+                          <span className="font-medium text-gray-900 dark:text-white">
+                            {social.name}
+                          </span>
                         </a>
                       );
                     })}
@@ -331,28 +339,32 @@ export default function Contact({ settings }: ContactProps) {
               )}
 
               {/* Response Time */}
-              <div className="bg-gradient-to-br from-purple-900/20 to-pink-900/20 backdrop-blur-sm border border-white/10 rounded-3xl p-8">
-                <h3 className="text-2xl font-bold text-white mb-4">
+              <div className="bg-gray-50 dark:bg-gradient-to-br dark:from-purple-900/20 dark:to-pink-900/20 backdrop-blur-sm border border-gray-200 dark:border-white/10 rounded-3xl p-8">
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
                   Response Time
                 </h3>
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-400">Email Inquiries</span>
-                    <span className="text-purple-400 font-medium">
+                    <span className="text-gray-600 dark:text-gray-400">
+                      Email Inquiries
+                    </span>
+                    <span className="text-purple-600 dark:text-purple-400 font-medium">
                       24-48 hours
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-400">Commission Requests</span>
-                    <span className="text-purple-400 font-medium">
+                    <span className="text-gray-600 dark:text-gray-400">
+                      Commission Requests
+                    </span>
+                    <span className="text-purple-600 dark:text-purple-400 font-medium">
                       1-3 business days
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-400">
+                    <span className="text-gray-600 dark:text-gray-400">
                       Collaboration Proposals
                     </span>
-                    <span className="text-purple-400 font-medium">
+                    <span className="text-purple-600 dark:text-purple-400 font-medium">
                       3-5 business days
                     </span>
                   </div>
@@ -364,13 +376,13 @@ export default function Contact({ settings }: ContactProps) {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 bg-gradient-to-b from-gray-900 to-black">
+      <section className="py-20 bg-gray-50 dark:bg-gradient-to-b dark:from-gray-900 dark:to-black transition-colors duration-300">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-4">
+            <h2 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-4">
               Frequently Asked Questions
             </h2>
-            <p className="text-xl text-gray-400">
+            <p className="text-xl text-gray-600 dark:text-gray-400">
               Quick answers to common questions
             </p>
           </div>
@@ -400,12 +412,14 @@ export default function Contact({ settings }: ContactProps) {
             ].map((faq, index) => (
               <div
                 key={index}
-                className="bg-gradient-to-br from-purple-900/20 to-pink-900/20 backdrop-blur-sm border border-white/10 rounded-2xl p-6"
+                className="bg-white dark:bg-gradient-to-br dark:from-purple-900/20 dark:to-pink-900/20 backdrop-blur-sm border border-gray-200 dark:border-white/10 rounded-2xl p-6"
               >
-                <h3 className="text-xl font-bold text-white mb-3">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
                   {faq.question}
                 </h3>
-                <p className="text-gray-400 leading-relaxed">{faq.answer}</p>
+                <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                  {faq.answer}
+                </p>
               </div>
             ))}
           </div>

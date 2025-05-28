@@ -2,6 +2,7 @@ import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
 import type { Session } from "next-auth";
 import Head from "next/head";
+import { ThemeProvider } from "../contexts/ThemeContext";
 import "../styles/globals.css";
 
 type AppPropsWithAuth = AppProps & {
@@ -16,12 +17,14 @@ export default function App({
 }: AppPropsWithAuth) {
   return (
     <SessionProvider session={session}>
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#000000" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Component {...pageProps} />
+      <ThemeProvider>
+        <Head>
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <meta name="theme-color" content="#000000" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <Component {...pageProps} />
+      </ThemeProvider>
     </SessionProvider>
   );
 }

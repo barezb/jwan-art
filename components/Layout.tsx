@@ -10,7 +10,10 @@ import {
   Linkedin,
   Mail,
   Phone,
+  Sun,
+  Moon,
 } from "lucide-react";
+import { useTheme } from "../contexts/ThemeContext";
 import { SiteSettings } from "../types";
 
 interface LayoutProps {
@@ -21,6 +24,7 @@ interface LayoutProps {
 export default function Layout({ children, settings }: LayoutProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { theme, toggleTheme } = useTheme();
   const router = useRouter();
 
   useEffect(() => {
@@ -47,11 +51,13 @@ export default function Layout({ children, settings }: LayoutProps) {
   ].filter((link) => link.href);
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white transition-colors duration-300">
       {/* Navigation */}
       <nav
         className={`fixed w-full z-50 transition-all duration-300 ${
-          scrolled ? "bg-black/90 backdrop-blur-md py-4" : "bg-transparent py-6"
+          scrolled
+            ? "bg-white/90 dark:bg-black/90 backdrop-blur-md py-4 shadow-lg border-b border-gray-200 dark:border-white/10"
+            : "bg-transparent py-6"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -59,7 +65,7 @@ export default function Layout({ children, settings }: LayoutProps) {
             {/* Logo */}
             <Link
               href="/"
-              className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"
+              className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent"
             >
               {settings?.artistName || "Art Gallery"}
             </Link>
@@ -70,15 +76,15 @@ export default function Layout({ children, settings }: LayoutProps) {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`text-sm font-medium transition-all duration-200 hover:text-purple-400 relative group ${
+                  className={`text-sm font-medium transition-all duration-200 hover:text-purple-600 relative group ${
                     router.pathname === item.href
-                      ? "text-purple-400"
-                      : "text-white"
+                      ? "text-purple-600"
+                      : "text-gray-700 dark:text-white"
                   }`}
                 >
                   {item.name}
                   <span
-                    className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-purple-400 to-pink-400 transition-all duration-200 ${
+                    className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-purple-600 to-pink-600 transition-all duration-200 ${
                       router.pathname === item.href
                         ? "w-full"
                         : "w-0 group-hover:w-full"
@@ -88,8 +94,18 @@ export default function Layout({ children, settings }: LayoutProps) {
               ))}
             </div>
 
-            {/* Social Links - Desktop */}
+            {/* Theme Toggle + Social Links - Desktop */}
             <div className="hidden md:flex items-center space-x-4">
+              {/* Theme Toggle */}
+              <button
+                onClick={toggleTheme}
+                className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200"
+                aria-label="Toggle theme"
+              >
+                {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
+              </button>
+
+              {/* Social Links */}
               {socialLinks.map((social) => {
                 const Icon = social.icon;
                 return (
@@ -98,7 +114,7 @@ export default function Layout({ children, settings }: LayoutProps) {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-white/70 hover:text-purple-400 transition-colors duration-200"
+                    className="text-gray-600 dark:text-white/70 hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-200"
                   >
                     <Icon size={20} />
                   </a>
@@ -109,7 +125,7 @@ export default function Layout({ children, settings }: LayoutProps) {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 rounded-lg text-white hover:text-purple-400 transition-colors duration-200"
+              className="md:hidden p-2 rounded-lg text-gray-700 dark:text-white hover:text-purple-600 transition-colors duration-200"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -122,25 +138,34 @@ export default function Layout({ children, settings }: LayoutProps) {
             isMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
           }`}
         >
-          <div className="bg-black/95 backdrop-blur-md px-4 py-6 space-y-4">
+          <div className="bg-white/95 dark:bg-black/95 backdrop-blur-md px-4 py-6 space-y-4 border-t border-gray-200 dark:border-white/10">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
                 onClick={() => setIsMenuOpen(false)}
-                className={`block text-lg font-medium transition-colors duration-200 hover:text-purple-400 ${
+                className={`block text-lg font-medium transition-colors duration-200 hover:text-purple-600 ${
                   router.pathname === item.href
-                    ? "text-purple-400"
-                    : "text-white"
+                    ? "text-purple-600"
+                    : "text-gray-700 dark:text-white"
                 }`}
               >
                 {item.name}
               </Link>
             ))}
 
+            {/* Mobile Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="flex items-center space-x-2 text-gray-700 dark:text-white hover:text-purple-600 transition-colors duration-200"
+            >
+              {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
+              <span>Switch to {theme === "dark" ? "Light" : "Dark"} Mode</span>
+            </button>
+
             {/* Mobile Social Links */}
             {socialLinks.length > 0 && (
-              <div className="pt-4 border-t border-white/10">
+              <div className="pt-4 border-t border-gray-200 dark:border-white/10">
                 <div className="flex space-x-4">
                   {socialLinks.map((social) => {
                     const Icon = social.icon;
@@ -150,7 +175,7 @@ export default function Layout({ children, settings }: LayoutProps) {
                         href={social.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-white/70 hover:text-purple-400 transition-colors duration-200"
+                        className="text-gray-600 dark:text-white/70 hover:text-purple-600 transition-colors duration-200"
                       >
                         <Icon size={24} />
                       </a>
@@ -167,16 +192,16 @@ export default function Layout({ children, settings }: LayoutProps) {
       <main className="relative">{children}</main>
 
       {/* Footer */}
-      <footer className="bg-gradient-to-t from-gray-900 to-black border-t border-white/10">
+      <footer className="bg-gray-50 dark:bg-gradient-to-t dark:from-gray-900 dark:to-black border-t border-gray-200 dark:border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Artist Info */}
             <div className="space-y-4">
-              <h3 className="text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+              <h3 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                 {settings?.artistName || "Art Gallery"}
               </h3>
               {settings?.artistBio && (
-                <p className="text-gray-400 text-sm leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
                   {settings.artistBio.substring(0, 150)}
                   {settings.artistBio.length > 150 ? "..." : ""}
                 </p>
@@ -185,13 +210,15 @@ export default function Layout({ children, settings }: LayoutProps) {
 
             {/* Quick Links */}
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-white">Quick Links</h4>
+              <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
+                Quick Links
+              </h4>
               <div className="space-y-2">
                 {navigation.map((item) => (
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="block text-gray-400 hover:text-purple-400 transition-colors duration-200 text-sm"
+                    className="block text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-200 text-sm"
                   >
                     {item.name}
                   </Link>
@@ -201,25 +228,27 @@ export default function Layout({ children, settings }: LayoutProps) {
 
             {/* Contact Info */}
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-white">Get in Touch</h4>
+              <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
+                Get in Touch
+              </h4>
               <div className="space-y-2">
                 {settings?.contactEmail && (
-                  <div className="flex items-center space-x-2 text-gray-400 text-sm">
+                  <div className="flex items-center space-x-2 text-gray-600 dark:text-gray-400 text-sm">
                     <Mail size={16} />
                     <a
                       href={`mailto:${settings.contactEmail}`}
-                      className="hover:text-purple-400 transition-colors duration-200"
+                      className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-200"
                     >
                       {settings.contactEmail}
                     </a>
                   </div>
                 )}
                 {settings?.contactPhone && (
-                  <div className="flex items-center space-x-2 text-gray-400 text-sm">
+                  <div className="flex items-center space-x-2 text-gray-600 dark:text-gray-400 text-sm">
                     <Phone size={16} />
                     <a
                       href={`tel:${settings.contactPhone}`}
-                      className="hover:text-purple-400 transition-colors duration-200"
+                      className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-200"
                     >
                       {settings.contactPhone}
                     </a>
@@ -238,7 +267,7 @@ export default function Layout({ children, settings }: LayoutProps) {
                         href={social.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-gray-400 hover:text-purple-400 transition-all duration-200 transform hover:scale-110"
+                        className="text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-all duration-200 transform hover:scale-110"
                       >
                         <Icon size={20} />
                       </a>
@@ -249,8 +278,8 @@ export default function Layout({ children, settings }: LayoutProps) {
             </div>
           </div>
 
-          <div className="mt-8 pt-8 border-t border-white/10 text-center">
-            <p className="text-gray-400 text-sm">
+          <div className="mt-8 pt-8 border-t border-gray-200 dark:border-white/10 text-center">
+            <p className="text-gray-600 dark:text-gray-400 text-sm">
               © {new Date().getFullYear()}{" "}
               {settings?.artistName || "Art Gallery"}. All rights reserved.
             </p>

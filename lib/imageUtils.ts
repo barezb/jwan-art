@@ -21,7 +21,10 @@ export const compressImage = async (
   try {
     let sharpInstance = sharp(buffer);
 
-    // Get original image metadata
+    // IMPORTANT: Rotate based on EXIF orientation first, then remove EXIF data
+    sharpInstance = sharpInstance.rotate();
+
+    // Get original image metadata after rotation
     const metadata = await sharpInstance.metadata();
 
     // Calculate new dimensions while maintaining aspect ratio
@@ -50,27 +53,33 @@ export const compressImage = async (
       withoutEnlargement: true,
     });
 
-    // Apply format-specific compression
+    // Apply format-specific compression and remove metadata
     switch (format) {
       case "jpeg":
-        sharpInstance = sharpInstance.jpeg({
-          quality,
-          progressive: true,
-          mozjpeg: true,
-        });
+        sharpInstance = sharpInstance
+          .jpeg({
+            quality,
+            progressive: true,
+            mozjpeg: true,
+          })
+          .withMetadata(false); // Remove EXIF data to prevent rotation
         break;
       case "png":
-        sharpInstance = sharpInstance.png({
-          quality,
-          compressionLevel: 8,
-          progressive: true,
-        });
+        sharpInstance = sharpInstance
+          .png({
+            quality,
+            compressionLevel: 8,
+            progressive: true,
+          })
+          .withMetadata(false);
         break;
       case "webp":
-        sharpInstance = sharpInstance.webp({
-          quality,
-          effort: 6,
-        });
+        sharpInstance = sharpInstance
+          .webp({
+            quality,
+            effort: 6,
+          })
+          .withMetadata(false);
         break;
     }
 
@@ -91,7 +100,8 @@ export const getImageDimensions = async (
   buffer: Buffer
 ): Promise<{ width: number; height: number }> => {
   try {
-    const metadata = await sharp(buffer).metadata();
+    // Rotate based on EXIF first to get correct dimensions
+    const metadata = await sharp(buffer).rotate().metadata();
     return {
       width: metadata.width || 0,
       height: metadata.height || 0,
